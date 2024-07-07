@@ -1,31 +1,22 @@
-import re # Expresiones regulares
-
-#Variables globales
+import re 
 global tipoDeOptimizacion;
 global numeroVariablesDecision;
 global numeroRestricciones;
 global variableU
 
-#  Import de clases
 from Controlador import*
 from Imprimir import*
 
 coeficientesFuncionObjetivo = []
 restricciones = []
 
-#Funcion Main
-def main(elementosEntrada):#elementosEntrada):
-
+def main(elementosEntrada):
     global coeficientesFuncionObjetivo
     global restricciones
-
     archivoSalida = "solucionDosFases"
-    
     asignarElementos(elementosEntrada)
-
     global numeroVariablesDecision
     file = Archivo(archivoSalida)
-
     controlador = Controlador(tipoDeOptimizacion,coeficientesFuncionObjetivo,restricciones,int(numeroVariablesDecision),file.getArchivo(),False)
     controlador.inicioControlador()
     float
@@ -33,21 +24,7 @@ def main(elementosEntrada):#elementosEntrada):
 def fname(arg):
     pass
 
-def mainDual(elementosEntrada, file):
 
-    global coeficientesFuncionObjetivo
-    global restricciones
-
-    #archivoSalida = "solucionSimplexDual"
-    #file = Archivo(archivoSalida)
-
-    asignarElementos(elementosEntrada)
-
-    global numeroVariablesDecision
-
-    controlador = Controlador(tipoDeOptimizacion,coeficientesFuncionObjetivo,restricciones,int(numeroVariablesDecision),file, True)
-    controlador.inicioControlador()
-    float
 #Funcion que se encarga de llamar a las distintas funciones para hacer validaciones del archivo de entrada
 def asignarElementos(elementosEntrada):
     validarTipoOptimizacion(elementosEntrada[0])
@@ -56,13 +33,11 @@ def asignarElementos(elementosEntrada):
     validarRestricciones(elementosEntrada)
 
 #Valida si el tipo de optimizacion es min o max
-#Retorna a la funcion anterior (asignarElementos)
 def validarTipoOptimizacion(optimizacion):
     global tipoDeOptimizacion
     if optimizacion == "min" or optimizacion == "max":
         if optimizacion == "min":
             tipoDeOptimizacion = True
-            #print("El tipo de optimizacion es: " + tipoDeOptimizacion)
             return
         else:
             tipoDeOptimizacion = False
@@ -88,8 +63,6 @@ def validarNumeroArgumentos(linea2Archivo):
         except ValueError:
             print("ERROR: Alguno de los valores ingresados no es un entero")
             exit(0)
-        #print("El numero de numeroVariablesDecision es : " + numeroVariablesDecision)
-        #print("El numero de numeroRestricciones es : " + numeroRestricciones)
         return
     else:
         print("ERROR: Se pasa de argumentos en la linea 2 del archivo")
@@ -162,6 +135,3 @@ def validarRestricciones(listaDeElementos):
         print("Se esperaban : " + str(numeroRestricciones))
         exit(0)
     return
-
-#INICIO DEL PROGRAMA
-#main()

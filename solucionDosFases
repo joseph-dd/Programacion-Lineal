@@ -1,0 +1,92 @@
+
+ * R = Var Artificial    
+ * S = Var Holgura       
+ * X = Var Decision      
+
+	x1	x2	R1	R2	S1	S2	SOL	DIV	
+	
+Z	8.0	6.0	0	0	-1	1	13.0	0	
+R1	3.0	1.0	1	0	0	0	3.0	0	
+R2	4.0	3.0	0	1	-1	0	6.0	0	
+S2	1.0	2.0	0	0	0	1	4.0	0	
+
+- Estado: 0
+- Numero Pivot: 3.0,VB entrante: x1,VB saliente: R1
+
+
+
+
+	x1		x2		R1		R2		S1		S2		SOL		DIV		
+	
+Z	0.0		3.33		-2.67		0.0		-1.0		1.0		5.0		0		
+x1	1.0		0.33		0.33		0.0		0.0		0.0		1.0		1.0		
+R2	0.0		1.67		-1.33		1.0		-1.0		0.0		2.0		1.5		
+S2	0.0		1.67		-0.33		0.0		0.0		1.0		3.0		4.0		
+
+- Estado: 1
+- Numero Pivot: 1.67,VB entrante: x2,VB saliente: R2
+
+
+
+
+	x1		x2		R1		R2		S1		S2		SOL		DIV		
+	
+Z	0.0		0.0		0.0		-2.0		1.0		1.0		1.0		0		
+x1	1.0		0.0		0.6		-0.2		0.2		0.0		0.6		3.0		
+x2	0.0		1.0		-0.8		0.6		-0.6		0.0		1.2		1.2		
+S2	0.0		0.0		1.0		-1.0		1.0		1.0		1.0		1.8		
+
+- Estado: 2
+- Numero Pivot: 1.0,VB entrante: S1,VB saliente: S2
+
+
+
+
+	x1		x2		R1		R2		S1		S2		SOL		DIV		
+	
+Z	0.0		0.0		-1.0		-1.0		0.0		0.0		0.0		0		
+x1	1.0		0.0		0.4		0.0		0.0		-0.2		0.4		3.0		
+x2	0.0		1.0		-0.2		0.0		0.0		0.6		1.8		-1		
+S1	0.0		0.0		1.0		-1.0		1.0		1.0		1.0		1.0		
+
+- Estado Final
+->Respuesta Final: Z = 0.0(x1: 0.4,x2: 1.8,S1: 1.0,R1: 0,R2: 0,S2: 0 )
+
+->Existen multiples soluciones
+- Numero Pivot: 1.0,VB entrante: S2,VB saliente: S1
+
+
+
+
+	x1		x2		R1		R2		S1		S2		SOL		DIV		
+	
+Z	0.0		0.0		-1.0		-1.0		0.0		0.0		0.0		0		
+x1	1.0		0.0		0.6		-0.2		0.2		0.0		0.6		-1		
+x2	0.0		1.0		-0.8		0.6		-0.6		0.0		1.2		3.0		
+S2	0.0		0.0		1.0		-1.0		1.0		1.0		1.0		1.0		
+
+
+** Solucion EXTRA debido a que la variable no basica: S1 tenia un valor de 0 en el estado Final **
+->Respuesta Final: Z = 0.0(x1: 0.6,x2: 1.2,S2: 1.0,R1: 0,R2: 0,S1: 0 )
+	x1	x2	S1	S2	SOL	DIV	
+	
+Z	0.0	0.0	0.2	0.0	3.6	0	
+x1	1.0	0.0	0.2	0.0	0.6	-1	
+x2	0.0	1.0	-0.6	0.0	1.2	3.0	
+S2	0.0	0.0	1.0	1.0	1.0	1.0	
+
+- Estado: 0
+- Numero Pivot: 1.0,VB entrante: S1,VB saliente: S2
+
+
+
+
+	x1		x2		S1		S2		SOL		DIV		
+	
+Z	0.0		0.0		0.0		-0.2		3.4		0		
+x1	1.0		0.0		0.0		-0.2		0.4		3.0		
+x2	0.0		1.0		0.0		0.6		1.8		-1		
+S1	0.0		0.0		1.0		1.0		1.0		1.0		
+
+- Estado Final
+->Respuesta Final: Z = 3.4(x1: 0.4,x2: 1.8,S1: 1.0,S2: 0 )

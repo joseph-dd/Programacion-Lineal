@@ -6,35 +6,27 @@ arregloCol=[]
 arregloFilas=["Z"]
 arregloZ=[]
 arregloZ2=[]
-#-----------------------------------------------------------
 class Z_Aux:
-    #Constructor
     '''
     Clase en la cual se cuenta con un constructor encargado de 
     crear un objeto el cual tiene como atributo numero y letra valor 
     la cual hace referencia a la columna en que se ubique
     '''
     def __init__(self,NUM,letra):
-      
         self.NUM=NUM
         self.letra=letra 
-#-----------------------------------------------------------
-#crear Z
+
 class Z:
     #Constructor
     '''
     Clase la cual recibe como parametro si se trata de minimizar o 
     maximizar, ademas de una lista de lista en la cual se encuentran
-    las restricciones en formato de [[3,2,1,"<="]] en donde los numeros
-    corresponden a float o int y el simbolo es un string
-
+    las restricciones en formato de [[3,2,1,"<="]] 
     '''
     def __init__(self,arreglo,esMin,u):
         self.esMin= esMin
         self.restricciones=arreglo
         self.u= u
-
-
     '''
     Funcion en la cual se crean los objetos
     correspondientes a las variables basicas
@@ -54,12 +46,9 @@ class Z:
             arregloZ.append(z)
         sol=Z_Aux(0,"SOL")
         arregloZ.append(sol)
-
-
     ''' 
     Funcion en la cual se verifica si la variable
-    se encuentra en el arreglo  para ello se utiliza 
-    la letra que lo ubica en la columna
+    se encuentra en el arreglo 
     '''
     def buscarArreglo(self,identificador):
         global arregloZ
@@ -67,20 +56,16 @@ class Z:
             if arregloZ[x].letra == identificador:
                 return x
         return -1
-
     '''
     Funcion que verifica si se trata de minimizar o 
     maximizar , en caso de que sea minimizar cambiara de
     signo al numero debido al despeje que se debe hacer
     al colocar Z
-
     '''
     def verificarMinX(self,numero):
         if self.esMin is True:
-            #print(numero*-1)
             return numero*-1
         else: return numero
-       
     '''
     Funcion la cual va agregando va recorriendo restriccion por restriccion
     para realizar la suma correspondiente de acuerdo al despeje
@@ -91,31 +76,23 @@ class Z:
         for i in range (len(self.restricciones)):
      
             if self.restricciones[i][len(self.restricciones[i])-1]!= "<=":
-                for j in range(len(self.restricciones[i])-2): ## por que los dos ultimos son solucion y simbolo
-                    if self.buscarArreglo("x"+str(j+1)) != -1: # si lo encontro devuelve la pos donde esta si no -1
-                        numero = self.verificarMinX(self.restricciones[i][j])# si es minimizar lo deja igual
-
+                for j in range(len(self.restricciones[i])-2): ## por que los dos ultimos son solucion y division
+                    if self.buscarArreglo("x"+str(j+1)) != -1: 
+                        numero = self.verificarMinX(self.restricciones[i][j])
                 numero = self.verificarMinX(self.restricciones[i][len(self.restricciones[i])-2])# si es minimizar lo multiplica*-1
                 x=self.buscarArreglo("SOL")
-                 
             self.cambiarSignos()
-
-
     '''
     Funcion que cambia el signo del numero en la fila Z
     '''
     def cambiarSignos(self):
         global arregloZ,tabla
-        
         arregloZ[len(arregloZ)-1].NUM=arregloZ[len(arregloZ)-1].NUM*-1
-        
-
         for x in range(len(arregloZ)):
             tabla[0][self.ubicar_En_Tabla(arregloZ[x])]=arregloZ[x]    
-
     '''
     Funcion la cual se utiliza para ubicar en la tabla
-    el elemento de la fila U
+    el elemento de la fila Z
     '''
     def ubicar_En_Tabla(self,elemento):
         global arregloCol
@@ -134,21 +111,17 @@ class Z:
         for x in range(len(arregloCol)):
             z=Z_Aux(0,arregloCol[x])
             tabla[0][x]=z
-       
-
-#-------------------------------------------------------
-#Matriz     
-
+            
 class Matriz:
     #Constructor
     def __init__(self, arreglo):
         self.matriz = arreglo
        
-    def set_Matriz(self, valor):  #set matriz  
+    def set_Matriz(self, valor):   
         print("Matriz cambiada")
         self.matriz = valor
 
-    def get_Matriz(self): #get de la matriz 
+    def get_Matriz(self): 
         return self.matriz
 
     '''
@@ -157,7 +130,7 @@ class Matriz:
     en caso de tenerlas
     Ademas se agregan dos columnas extra para colocar
     la solucion y el resultado de la division para
-    la seleccion del fila pivot
+    la seleccion del fila pivote
     '''
     def cantidad_filas(self):
         if(len(self.matriz) is not 0):
@@ -176,10 +149,8 @@ class Matriz:
         global variablesDecision
         for i in range (0,variablesDecision):
             arregloCol.append("x"+str(i+1))
-
-#-----------------------------------------------------------
+            
 #Restricciones
-
 class Restricciones:
     #Constructor
     def __init__(self, arreglo,esMin):
@@ -193,8 +164,7 @@ class Restricciones:
     '''   
     def colocar_Restricciones(self):
         global variablesDecision
-        posicion = variablesDecision-1  # aumenta en R y S
-        
+        posicion = variablesDecision-1 
         for i in range(len(self.matriz)):
             for j in range(len(self.matriz[i])-2):
                 tabla[i+1][j]=self.matriz[i][j]
@@ -206,13 +176,7 @@ class Restricciones:
             if x is 2:
                 tabla[i+1][posicion-1]=1
                 tabla[i+1][posicion]=-1
-            else: tabla[i+1][posicion]=1
-        '''
-        como se menciono anteriormente
-        se agregan dos columnas extras
-        que corresponden a la solucin y a una
-        para la division
-        '''    
+            else: tabla[i+1][posicion]=1   
         arregloCol.append("SOL")
         arregloCol.append("DIV")
 
